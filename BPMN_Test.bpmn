@@ -31,7 +31,7 @@
         <bpmn:flowNodeRef>IntermediateThrowEvent_1eefv7d</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:intermediateCatchEvent id="StartEvent_0jfztq2" name="Harga">
+    <bpmn:intermediateCatchEvent id="StartEvent_0jfztq2" name="Tagihan">
       <bpmn:incoming>SequenceFlow_0bu9cl1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_13h9vwj</bpmn:outgoing>
       <bpmn:messageEventDefinition />
@@ -229,7 +229,7 @@
       <bpmndi:BPMNShape id="IntermediateCatchEvent_0yg991f_di" bpmnElement="StartEvent_0jfztq2">
         <dc:Bounds x="927" y="447" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="930" y="490" width="30" height="14" />
+          <dc:Bounds x="926" y="490" width="38" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_0nuo00a_di" bpmnElement="Task_0nuo00a">
