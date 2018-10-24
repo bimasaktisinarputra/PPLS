@@ -177,6 +177,9 @@
     <bpmn:task id="Task_0x49mop" name="Batal">
       <bpmn:incoming>SequenceFlow_13rpiiu</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1d68dta</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1p050ph">
+        <bpmn:targetRef>DataStoreReference_0izbad7</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:task>
     <bpmn:receiveTask id="Task_0nuo00a" name="Bayar Tagihan">
       <bpmn:incoming>SequenceFlow_1mgubdv</bpmn:incoming>
@@ -502,6 +505,10 @@
       <bpmndi:BPMNEdge id="DataOutputAssociation_0fgic9k_di" bpmnElement="DataOutputAssociation_0fgic9k">
         <di:waypoint x="1700" y="422" />
         <di:waypoint x="1145" y="353" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1p050ph_di" bpmnElement="DataOutputAssociation_1p050ph">
+        <di:waypoint x="1521" y="571" />
+        <di:waypoint x="1145" y="364" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
