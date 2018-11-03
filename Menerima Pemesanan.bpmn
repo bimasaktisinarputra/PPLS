@@ -28,7 +28,7 @@
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="SequenceFlow_01w98tb" sourceRef="StartEvent_0nrmc9u" targetRef="Task_0gfoqzo" />
     <bpmn:sequenceFlow id="SequenceFlow_09y58sd" sourceRef="Task_0gfoqzo" targetRef="EndEvent_1wo2m8l" />
-    <bpmn:dataStoreReference id="DataStoreReference_18c2y0e" name="Vendor Data Store" />
+    <bpmn:dataStoreReference id="DataStoreReference_18c2y0e" name="Car Data Store" />
     <bpmn:endEvent id="EndEvent_1wo2m8l">
       <bpmn:incoming>SequenceFlow_09y58sd</bpmn:incoming>
     </bpmn:endEvent>
@@ -61,7 +61,7 @@
         <bpmn:targetRef>DataStoreReference_0aepm50</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:sendTask>
-    <bpmn:dataStoreReference id="DataStoreReference_0wwnt1t" name="Vendor Data Store" />
+    <bpmn:dataStoreReference id="DataStoreReference_0wwnt1t" name="Car Data Store" />
     <bpmn:sequenceFlow id="SequenceFlow_0cwotdi" sourceRef="StartEvent_1gu3qph" targetRef="Task_0sxvnae" />
     <bpmn:sequenceFlow id="SequenceFlow_1wql4a7" sourceRef="Task_0sxvnae" targetRef="Task_00f0ym2" />
     <bpmn:dataStoreReference id="DataStoreReference_0aepm50" name="Invoice Data Store" />
@@ -101,7 +101,7 @@
       <bpmndi:BPMNShape id="DataStoreReference_18c2y0e_di" bpmnElement="DataStoreReference_18c2y0e">
         <dc:Bounds x="238" y="309" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="219" y="366" width="90" height="14" />
+          <dc:Bounds x="227" y="366" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataInputAssociation_1n8nnqs_di" bpmnElement="DataInputAssociation_1n8nnqs">
@@ -158,7 +158,7 @@
       <bpmndi:BPMNShape id="DataStoreReference_0wwnt1t_di" bpmnElement="DataStoreReference_0wwnt1t">
         <dc:Bounds x="574" y="501" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="555" y="558" width="90" height="14" />
+          <dc:Bounds x="563" y="558" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_14kyf1y_di" bpmnElement="DataOutputAssociation_14kyf1y">
