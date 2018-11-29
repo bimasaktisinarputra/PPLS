@@ -123,8 +123,8 @@ class BookCar(spyne.Service):
         variables["dropLoc"] = v_loc
         variables["dropDate"] = v_date
         response = send_camunda_msg_pid("car-detail", variables, process_code)
-        invoice = get_camunda_variable(process_code, "invoice")
-        invoice["price"] = 10000 # Rp 10.000,- is charged to the user for booking
+        # invoice = get_camunda_variable(process_code, "invoice")
+        # invoice["price"] = 10000 # Rp 10.000,- is charged to the user for booking
 
         # Calling SOAP method from Payment service (EasyPay)
         client = SudsClient(url=payment_url)
