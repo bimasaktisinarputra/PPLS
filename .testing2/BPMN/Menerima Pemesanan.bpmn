@@ -62,11 +62,6 @@ url;
     <bpmn:dataStoreReference id="DataStoreReference_18c2y0e" name="Car Data Store" />
     <bpmn:sequenceFlow id="SequenceFlow_0xe2c7y" sourceRef="Task_0gfoqzo" targetRef="IntermediateThrowEvent_0yuttn5" />
     <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_0yuttn5" name="Car Detail">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="Input_2alua3d" />
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0xe2c7y</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0hro9b6</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_1f9hcfg" />
