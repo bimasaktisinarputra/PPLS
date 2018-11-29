@@ -1,5 +1,6 @@
 import requests
 import json
+import urllib
 from flask import Flask
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
@@ -90,7 +91,7 @@ class CarAvailability(spyne.Service):
     @spyne.srpc(Unicode, Unicode, _returns=AnyDict)
     def car_availability(pick_loc, pick_date):
         vloc = create_variable(pick_loc, "String")
-        vdate = create_variable(pick_date, "String")
+        vdate = create_variable(urllib.quote(pick_date, safe=''), "String")
         variables = {}
         variables["pickLoc"] = vloc
         variables["pickDate"] = vdate
@@ -108,10 +109,11 @@ class BookCar(spyne.Service):
 
     @spyne.srpc(Unicode, Unicode, Unicode, Unicode, Unicode, _returns=AnyDict)
     def book_car(id_mobil, id_penumpang, drop_loc, drop_date, process_code):
+        car_list = get_camunda_variable(process_code, "carList")
         v_idm = create_variable(id_mobil, "String")
         v_idp = create_variable(id_penumpang, "String")
         v_loc = create_variable(drop_loc, "String")
-        v_date = create_variable(drop_date, "String")
+        v_date = create_variable(urllib.quote(drop_date, safe=''), "String")
         variables = {}
         variables["idMobil"] = v_idm
         variables["idPenumpang"] = v_idp
