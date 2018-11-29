@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_08eh8xm" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="cancelation" name="Cancelation">
+    <decisionTable id="decisionTable_1">
+      <input id="input_1">
+        <inputExpression id="inputExpression_1" typeRef="boolean">
+          <text>Status Bayar</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" name="Refund" typeRef="boolean" />
+      <output id="OutputClause_1ot2g97" name="Pembatalan" typeRef="boolean" />
+      <rule id="DecisionRule_0iw1cwg">
+        <inputEntry id="UnaryTests_022bcyd">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14moon5">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h2on48">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bvu2jc">
+        <inputEntry id="UnaryTests_185uoah">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g2xky1">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14m65qw">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

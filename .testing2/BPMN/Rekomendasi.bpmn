@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_07sp0gl" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.1">
+  <bpmn:message id="Message_1xr7ik4" name="query-recommendation" />
+  <bpmn:message id="Message_0fkp3f2" name="recommendation" />
+  <bpmn:collaboration id="Collaboration_0nv9srq">
+    <bpmn:participant id="Rekomendasi" name="Rental Mobil" processRef="rekomendasi" />
+    <bpmn:participant id="Participant_0epgzvr" name="User" processRef="Process_0myi1t7" />
+    <bpmn:participant id="Participant_1sk2tvy" name="Layanan Lain" processRef="Process_1ouiewt" />
+    <bpmn:messageFlow id="MessageFlow_1ne1t2v" sourceRef="Participant_0epgzvr" targetRef="StartEvent_0otnwvx" />
+    <bpmn:messageFlow id="MessageFlow_14tecmu" sourceRef="Task_1kvf6n2" targetRef="Participant_0epgzvr" />
+    <bpmn:messageFlow id="MessageFlow_0ibnl3y" sourceRef="Participant_1sk2tvy" targetRef="Task_10mde1y" />
+    <bpmn:messageFlow id="MessageFlow_1yz6fkw" sourceRef="Task_1dw97o7" targetRef="Participant_1sk2tvy" />
+  </bpmn:collaboration>
+  <bpmn:process id="rekomendasi" name="rekomendasi" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0otnwvx" name="Query Pencarian">
+      <bpmn:outgoing>SequenceFlow_0xxk232</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_1xr7ik4" />
+    </bpmn:startEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_07kb95t" name="Recommendation Data Store" />
+    <bpmn:sequenceFlow id="SequenceFlow_1mvav1f" sourceRef="Task_1kvf6n2" targetRef="EndEvent_10aqcsl" />
+    <bpmn:sequenceFlow id="SequenceFlow_104rdck" sourceRef="Task_10mde1y" targetRef="Task_1kvf6n2" />
+    <bpmn:sequenceFlow id="SequenceFlow_0d16omf" sourceRef="Task_1dw97o7" targetRef="Task_10mde1y" />
+    <bpmn:sequenceFlow id="SequenceFlow_0xxk232" sourceRef="StartEvent_0otnwvx" targetRef="Task_1dw97o7" />
+    <bpmn:endEvent id="EndEvent_10aqcsl">
+      <bpmn:incoming>SequenceFlow_1mvav1f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sendTask id="Task_1kvf6n2" name="Simpan dan Kirim Rekomendasi" camunda:type="external" camunda:topic="save-send-recommendation">
+      <bpmn:incoming>SequenceFlow_104rdck</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1mvav1f</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1h2iq78">
+        <bpmn:targetRef>DataStoreReference_07kb95t</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:sendTask>
+    <bpmn:receiveTask id="Task_10mde1y" name="Menerima data rekomendasi" messageRef="Message_0fkp3f2">
+      <bpmn:incoming>SequenceFlow_0d16omf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_104rdck</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:sendTask id="Task_1dw97o7" name="Kirim Query Pencarian" camunda:type="external" camunda:topic="send-query">
+      <bpmn:incoming>SequenceFlow_0xxk232</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0d16omf</bpmn:outgoing>
+    </bpmn:sendTask>
+  </bpmn:process>
+  <bpmn:process id="Process_0myi1t7" isExecutable="false" />
+  <bpmn:process id="Process_1ouiewt" isExecutable="false" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0nv9srq">
+      <bpmndi:BPMNShape id="Participant_1mvzr5n_di" bpmnElement="Rekomendasi">
+        <dc:Bounds x="255" y="165" width="693" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_00lnnpc_di" bpmnElement="StartEvent_0otnwvx">
+        <dc:Bounds x="316" y="270" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="293" y="313" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_07kb95t_di" bpmnElement="DataStoreReference_07kb95t">
+        <dc:Bounds x="678" y="323" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="660" y="380" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1h2iq78_di" bpmnElement="DataOutputAssociation_1h2iq78">
+        <di:waypoint x="752" y="318" />
+        <di:waypoint x="728" y="333" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mvav1f_di" bpmnElement="SequenceFlow_1mvav1f">
+        <di:waypoint x="852" y="288" />
+        <di:waypoint x="881" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_104rdck_di" bpmnElement="SequenceFlow_104rdck">
+        <di:waypoint x="652" y="288" />
+        <di:waypoint x="752" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0d16omf_di" bpmnElement="SequenceFlow_0d16omf">
+        <di:waypoint x="502" y="288" />
+        <di:waypoint x="552" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xxk232_di" bpmnElement="SequenceFlow_0xxk232">
+        <di:waypoint x="352" y="288" />
+        <di:waypoint x="402" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_1fa2zct_di" bpmnElement="Task_1kvf6n2">
+        <dc:Bounds x="752" y="248" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0epgzvr_di" bpmnElement="Participant_0epgzvr">
+        <dc:Bounds x="255" y="31" width="693" height="116" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_1ne1t2v_di" bpmnElement="MessageFlow_1ne1t2v">
+        <di:waypoint x="334" y="147" />
+        <di:waypoint x="334" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_14tecmu_di" bpmnElement="MessageFlow_14tecmu">
+        <di:waypoint x="802" y="248" />
+        <di:waypoint x="802" y="147" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ReceiveTask_0jt0537_di" bpmnElement="Task_10mde1y">
+        <dc:Bounds x="552" y="248" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_081z5sr_di" bpmnElement="Task_1dw97o7">
+        <dc:Bounds x="402" y="248" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1sk2tvy_di" bpmnElement="Participant_1sk2tvy">
+        <dc:Bounds x="255" y="430" width="691" height="117" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_0ibnl3y_di" bpmnElement="MessageFlow_0ibnl3y">
+        <di:waypoint x="601" y="430" />
+        <di:waypoint x="601" y="328" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1yz6fkw_di" bpmnElement="MessageFlow_1yz6fkw">
+        <di:waypoint x="452" y="328" />
+        <di:waypoint x="452" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1xigx1x_di" bpmnElement="EndEvent_10aqcsl">
+        <dc:Bounds x="881" y="270" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

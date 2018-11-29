@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_15khyp3" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="approve_payment" name="Approve Payment">
+    <decisionTable id="decisionTable_1">
+      <input id="InputClause_1ry5bbe">
+        <inputExpression id="LiteralExpression_0u8z2qq" typeRef="boolean">
+          <text>Konfirmasi Pembayaran</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_02zws6a">
+        <inputExpression id="LiteralExpression_0ah1u8z" typeRef="boolean">
+          <text>Time Out</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" name="Pembayaran" typeRef="string" />
+      <rule id="DecisionRule_1kqwt4f">
+        <inputEntry id="UnaryTests_0ts37rc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h1j51j">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uwb04m">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sh9dwr">
+        <inputEntry id="UnaryTests_15onjci">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f4i1k2">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gv43fu">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11nqt5c">
+        <inputEntry id="UnaryTests_1bl3ziu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hg63da">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0urac4f">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

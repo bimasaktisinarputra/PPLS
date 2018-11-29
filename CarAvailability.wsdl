@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions 
+xmlns:plink="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:soap11enc="http://schemas.xmlsoap.org/soap/encoding/" 
+xmlns:soap11env="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:soap12enc="http://www.w3.org/2003/05/soap-encoding" 
+xmlns:soap12env="http://www.w3.org/2003/05/soap-envelope" 
+xmlns:tns="tns" 
+xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xop="http://www.w3.org/2004/08/xop/include" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+targetNamespace="tns" 
+name="CarAvailability">
+    <wsdl:types>
+        <xs:schema targetNamespace="tns" elementFormDefault="qualified">
+            <xs:complexType name="car_availability">
+                <xs:sequence>
+                    <xs:element name="pick_loc" type="xs:string" minOccurs="0" nillable="true"/>
+                    <xs:element name="pick_date" type="xs:string" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="car_availabilityResponse">
+                <xs:sequence>
+                    <xs:element name="car_availabilityResult" type="xs:anyType" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="car_availability" type="tns:car_availability"/>
+            <xs:element name="car_availabilityResponse" type="tns:car_availabilityResponse"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="car_availability">
+        <wsdl:part name="car_availability" element="tns:car_availability"/>
+    </wsdl:message>
+    <wsdl:message name="car_availabilityResponse">
+        <wsdl:part name="car_availabilityResponse" element="tns:car_availabilityResponse"/>
+    </wsdl:message>
+    <wsdl:service name="CarAvailability">
+        <wsdl:port name="CarAvailability" binding="tns:CarAvailability">
+            <soap:address location="http://167.205.35.227:5000/request_available_cars"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="CarAvailability">
+        <wsdl:operation name="car_availability" parameterOrder="car_availability">
+            <wsdl:input name="car_availability" message="tns:car_availability"/>
+            <wsdl:output name="car_availabilityResponse" message="tns:car_availabilityResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CarAvailability" type="tns:CarAvailability">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="car_availability">
+            <soap:operation soapAction="car_availability" style="document"/>
+            <wsdl:input name="car_availability">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="car_availabilityResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

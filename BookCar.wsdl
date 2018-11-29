@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:plink="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:soap11enc="http://schemas.xmlsoap.org/soap/encoding/" 
+xmlns:soap11env="http://schemas.xmlsoap.org/soap/envelope/" 
+xmlns:soap12enc="http://www.w3.org/2003/05/soap-encoding" 
+xmlns:soap12env="http://www.w3.org/2003/05/soap-envelope" 
+xmlns:tns="tns" 
+xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xop="http://www.w3.org/2004/08/xop/include" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+targetNamespace="tns" 
+name="BookCar">
+    <wsdl:types>
+        <xs:schema targetNamespace="tns" elementFormDefault="qualified">
+            <xs:complexType name="book_car">
+                <xs:sequence>
+                    <xs:element name="id_mobil" type="xs:string" minOccurs="0" nillable="true"/>
+                    <xs:element name="id_penumpang" type="xs:string" minOccurs="0" nillable="true"/>
+                    <xs:element name="drop_loc" type="xs:string" minOccurs="0" nillable="true"/>
+                    <xs:element name="drop_date" type="xs:string" minOccurs="0" nillable="true"/>
+                    <xs:element name="process_code" type="xs:string" minOccurs="0" nillable="true"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="book_carResponse">
+                <xs:sequence>
+                    <xs:element name="book_carResult" type="xs:anyType" minOccurs="0" nillable="true"/>     
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="book_car" type="tns:book_car"/>
+            <xs:element name="book_carResponse" type="tns:book_carResponse"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="book_car">
+        <wsdl:part name="book_car" element="tns:book_car"/>
+    </wsdl:message>
+    <wsdl:message name="book_carResponse">
+        <wsdl:part name="book_carResponse" element="tns:book_carResponse"/>
+    </wsdl:message>
+    <wsdl:service name="BookCar">
+        <wsdl:port name="BookCar" binding="tns:BookCar">
+            <soap:address location="http://167.205.35.227:5000/book_car"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="BookCar">
+        <wsdl:operation name="book_car" parameterOrder="book_car">
+            <wsdl:input name="book_car" message="tns:book_car"/>
+            <wsdl:output name="book_carResponse" message="tns:book_carResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BookCar" type="tns:BookCar">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="book_car">
+            <soap:operation soapAction="book_car" style="document"/>
+            <wsdl:input name="book_car">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="book_carResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>
