@@ -18,7 +18,7 @@ payment_url = 'http://167.205.35.211:8080/easypay/PaymentService?wsdl'
 
 def create_variable(value, vtype):
     variable = {}
-    variable["value"] = value
+    variable["value"] = urllib.quote(value, safe='')
     variable["type"] = vtype
     return variable
 
@@ -94,7 +94,7 @@ class CarAvailability(spyne.Service):
     @spyne.srpc(Unicode, Unicode, _returns=AnyDict)
     def car_availability(pick_loc, pick_date):
         vloc = create_variable(pick_loc, "String")
-        vdate = create_variable(urllib.quote(pick_date, safe=''), "String")
+        vdate = create_variable(pick_date, "String")
         variables = {}
         variables["pickLoc"] = vloc
         variables["pickDate"] = vdate
@@ -116,15 +116,15 @@ class BookCar(spyne.Service):
         v_idm = create_variable(id_mobil, "String")
         v_idp = create_variable(id_penumpang, "String")
         v_loc = create_variable(drop_loc, "String")
-        v_date = create_variable(urllib.quote(drop_date, safe=''), "String")
+        v_date = create_variable(drop_date, "String")
         variables = {}
         variables["idMobil"] = v_idm
         variables["idPenumpang"] = v_idp
         variables["dropLoc"] = v_loc
         variables["dropDate"] = v_date
         response = send_camunda_msg_pid("car-detail", variables, process_code)
-        # invoice = get_camunda_variable(process_code, "invoice")
-        # invoice["price"] = 10000 # Rp 10.000,- is charged to the user for booking
+        invoice = get_camunda_variable(process_code, "invoice")
+        invoice["price"] = 10000 # Rp 10.000,- is charged to the user for booking
 
         # Calling SOAP method from Payment service (EasyPay)
         client = SudsClient(url=payment_url)
