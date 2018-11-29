@@ -1,17 +1,20 @@
 import requests
 import json
 import urllib
+import logging
 from flask import Flask
 from flask_spyne import Spyne
 from spyne.protocol.soap import Soap11
 from spyne.protocol.json import JsonDocument
 from spyne.model.primitive import Unicode, Integer, AnyDict, String
 from spyne.model.complex import Iterable
+from suds.client import Client as SudsClient
 
 camunda_rest_url = "http://127.0.0.1:8080/engine-rest"
 camunda_message_url = camunda_rest_url + "/message"
 camunda_process_url = camunda_rest_url + "/process-instance/"
 camunda_proxy_url = "http://127.0.0.1:3000"
+payment_url = 'http://167.205.35.211:8080/easypay/PaymentService?wsdl'
 
 def create_variable(value, vtype):
     variable = {}
@@ -120,7 +123,30 @@ class BookCar(spyne.Service):
         variables["dropLoc"] = v_loc
         variables["dropDate"] = v_date
         response = send_camunda_msg_pid("car-detail", variables, process_code)
-        output = get_camunda_variable(process_code, "invoice")
+        invoice = get_camunda_variable(process_code, "invoice")
+        invoice["price"] = 10000 # Rp 10.000,- is charged to the user for booking
+
+        # Calling SOAP method from Payment service (EasyPay)
+        client = SudsClient(url=payment_url)
+        payId = client.service.beginPayment("bank_va", 10000) 
+        r = client.service.getPaymentEvents(payId, 0)
+        events = SudsClient.dict(r)["events"]
+
+        # Get the VA account number from the response
+        i = 0
+        found = False
+        va_account = None
+        while i < len(events) and found is False :
+            if events[i]["_type"] == "ACCOUNT_NUMBER_AVAILABLE" :
+                va_account = events[i]["_accountNumber"]
+                found = True
+            else :
+                i += 1
+
+        # Returns the VA number designation and the price the user have to pay
+        output = {}
+        output["va_account"] = va_account
+        output["price"] = invoice["price"]
         return output
 
 if __name__ == '__main__':
