@@ -129,6 +129,7 @@ class BookCar(spyne.Service):
         # Calling SOAP method from Payment service (EasyPay)
         client = SudsClient(url=payment_url)
         payId = client.service.beginPayment("bank_va", 10000) 
+        print (payId)
         r = client.service.getPaymentEvents(payId, 0)
         events = SudsClient.dict(r)["events"]
 
